@@ -19,7 +19,7 @@ const quotes = [
     source: "Spock",
     citation: "Star Trek",
     year: "",
-    category: ["Fantasy", "Space", "Sacrifice", "TV"],
+    category: [],
   },
   { 
     quote: "Don't cry because it's over, smile because it happened.",
@@ -75,7 +75,41 @@ const getRandomQuote = () => {
    - Set the `innerHTML` of the `quote-box` div to the HTML string. 
 ***/
 
+// https://stackoverflow.com/questions/23095637/how-do-you-get-random-rgb-in-javascript
+function getRandomRgb() {
+  var num = Math.round(0xffffff * Math.random());
+  var r = num >> 16;
+  var g = num >> 8 & 255;
+  var b = num & 255;
+  return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+}
 
+const printQuote = () => {
+  let ranQuote = getRandomQuote();
+  let textQuote = `${ranQuote.quote ? `<p class="quote">${ranQuote.quote}</p>` : null}`;
+  let textSource = `${ranQuote.source ? `${ranQuote.source}` : null}`;
+  let textCitation = `${ranQuote.citation ? `<span class="citation">${ranQuote.citation}</span>` : ""}`;
+  let textYear = `${ranQuote.year ? `<span class="year">${ranQuote.year}</span>` : ""}`;
+  let category = "";
+  let ranBGColor = getRandomRgb();
+
+  if(ranQuote.category.length > 0){
+    let catLength = ranQuote.category.length;
+    let i = 0;
+
+    for(i; i < catLength; i++){
+      category +=  `<span class="citation">${ranQuote.category[i]}</span>`
+    }
+  }
+
+  let completeSentence = `${textQuote} <p class="source">${textSource} ${textCitation} ${textYear} ${category}</p>`
+
+  document.body.style.backgroundColor = ranBGColor;
+  document.getElementById("quote-box").innerHTML = completeSentence;
+  
+}
+
+setInterval(printQuote, 15000);
 
 
 /***
