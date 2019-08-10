@@ -47,6 +47,7 @@ const quotes = [
 // Create or Clone temporary array to remove an object
 let tempQuotes = [...quotes];
 
+
 const getRandomQuote = () => {
   // Check the Length of the tempQuotes, if it's 0 clone the quotes array
   if (tempQuotes.length === 0) {
@@ -61,20 +62,6 @@ const getRandomQuote = () => {
   return quote;
 }
 
-
-/***
-  Create the `printQuote` function to: 
-   - Call the `getRandomQuote` function and assign it to a variable.
-   - Create a variable for the HTML string and set it equal to an empty string.
-   - Use the HTML template in the instructions or the markup in the index.html file, AND 
-     the random quote vairable to build your HTML string.
-   - Add the quote and source section to the HTML string.
-   - Use an if statement to check for the citation property before adding it to the HTML string.
-   - Use an if statement to check for the year property before adding it to the HTML string.
-   - Don't forget to close that final `p` tag.
-   - Set the `innerHTML` of the `quote-box` div to the HTML string. 
-***/
-
 // https://stackoverflow.com/questions/23095637/how-do-you-get-random-rgb-in-javascript
 function getRandomRgb() {
   var num = Math.round(0xffffff * Math.random());
@@ -84,15 +71,19 @@ function getRandomRgb() {
   return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
 
-const printQuote = () => {
+// Create printQuote function
+const printQuote = (e) => {
+  // Set all the variables
   let ranQuote = getRandomQuote();
   let textQuote = `${ranQuote.quote ? `<p class="quote">${ranQuote.quote}</p>` : null}`;
   let textSource = `${ranQuote.source ? `${ranQuote.source}` : null}`;
   let textCitation = `${ranQuote.citation ? `<span class="citation">${ranQuote.citation}</span>` : ""}`;
   let textYear = `${ranQuote.year ? `<span class="year">${ranQuote.year}</span>` : ""}`;
   let category = "";
+  // Call the randomRGB function
   let ranBGColor = getRandomRgb();
 
+  // Check if Category exist or not, if it exist add to the placeholder variable
   if(ranQuote.category.length > 0){
     let catLength = ranQuote.category.length;
     let i = 0;
@@ -102,15 +93,23 @@ const printQuote = () => {
     }
   }
 
+  // Add all variables together into one
   let completeSentence = `${textQuote} <p class="source">${textSource} ${textCitation} ${textYear} ${category}</p>`
 
+  // Modified the HTML by adding completeSentence variable
   document.body.style.backgroundColor = ranBGColor;
   document.getElementById("quote-box").innerHTML = completeSentence;
-  
+
+  // if the event is not undefined, means the user click the button, clear the interval and make it longer
+  if(e !== undefined) {
+    clearInterval(timer);
+    timer = setInterval(printQuote, 15000);
+  }
+
 }
 
-setInterval(printQuote, 15000);
-
+// Generate random quote every 5 seconds
+let timer = setInterval(printQuote, 5000);
 
 /***
   When the "Show another quote" button is clicked, the event listener 
