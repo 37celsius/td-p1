@@ -1,30 +1,65 @@
-/******************************************
-Treehouse FSJS Techdegree:
-project 1 - A Random Quote Generator
-******************************************/
+// Create array of object
+const quotes = [
+  { 
+    quote: "If there are self-made purgatories, then we all have to live in them.",
+    source: "Spock",
+    citation: "Star Trek",
+    year: "",
+    category: ["Fantasy", "Space", "TV"],
+  },
+  { 
+    quote: "There's no such thing as the unknown—only things temporarily hidden, temporarily not understood.",
+    source: "James T. Kirk",
+    citation: "Star Trek",
+    year: "",
+    category: ["Fantasy", "Space", "Exploration", "TV"],
+  },
+  { 
+    quote: "The Needs of the Many Outweigh the Needs of the Few",
+    source: "Spock",
+    citation: "Star Trek",
+    year: "",
+    category: ["Fantasy", "Space", "Sacrifice", "TV"],
+  },
+  { 
+    quote: "Don't cry because it's over, smile because it happened.",
+    source: "Dr. Seuss",
+    citation: "",
+    year: "",
+    category: ["Children", "Happy"],
+  },
+  { 
+    quote: "Anywhere can be paradise as long as you have the will to live.",
+    source: "Yui Ikari",
+    citation: "Neon Genesis Evangelion",
+    year: "",
+    category: ["Anime", "Evangelion", "TV"],
+  },
+  { 
+    quote: "Humanity is probably the only creature capable of hating its own kind.",
+    source: "Gendou Ikari",
+    citation: "The End of Evangelion",
+    year: "1997",
+    category: ["Anime", "Evangelion", "Movie", "PTSD"],
+  },
+]
 
-// Study guide for this project - https://drive.google.com/file/d/1s5grutGuQFwJcQP8bFwEI69Q8FCkGdDk/view?usp=sharing
+// Create or Clone temporary array to remove an object
+let tempQuotes = [...quotes];
 
+const getRandomQuote = () => {
+  // Check the Length of the tempQuotes, if it's 0 clone the quotes array
+  if (tempQuotes.length === 0) {
+    tempQuotes = [...quotes]
+  } 
 
-/*** 
-  Create the array of quote objects and name it `quotes`.
-  Add at least five quote objects to the `quotes` array.
-  Give each quote object a `quote` and `source` property.
-  Add the `citation` property to at least one object in the array.
-  Add the `year` property to at least one object in the array.
-  Use console.log() to log your array of quotes to the console.
-***/
-
-
-
-
-/***
-  Create the `getRandomQuote` function to:
-   - Create a variable to store a random number 
-   - Cse the random number to `return` a random quote object from the `quotes` array.
-***/
-
-
+  let ranNum = Math.floor(Math.random() * tempQuotes.length);
+  let quote = tempQuotes[ranNum];
+  
+  // Remove from the clone array
+  tempQuotes.splice(ranNum, 1);
+  return quote;
+}
 
 
 /***
